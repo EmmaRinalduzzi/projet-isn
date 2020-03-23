@@ -3,7 +3,7 @@ import pygame
 from pygame.locals import *
 pygame.init()
 fenetre = pygame.display.set_mode((640, 480))
-TITLE = "MON SUPER JEU"
+TITLE = "message emma"
 pygame.display.set_caption(TITLE)
 rectScreen = fenetre.get_rect()  # coordonnée du rectangle de l'écran
 #############################################################
