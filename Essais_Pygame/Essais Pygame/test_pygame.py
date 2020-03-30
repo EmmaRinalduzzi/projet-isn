@@ -39,6 +39,10 @@ while True:
         elif event.type == KEYDOWN:          # Si on appuie sur une touche
             if event.key == K_UP:  # si cette touche est "fleche haut"
                 y -= 5
+            if event.key == K_RIGHT:
+                x += 5
+            if event.key == K_LEFT:
+                x -= 5
             if event.key == K_ESCAPE:
                 pygame.quit()
         if event.type == MOUSEBUTTONDOWN:    # si on fait un clic souris
