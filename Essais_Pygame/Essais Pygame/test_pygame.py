@@ -15,11 +15,11 @@ from pygame.locals import *
 from pygame_functions import * 
 pygame.init()
 fenetre = pygame.display.set_mode((640, 480))
-TITLE = "message emma"
+TITLE = "Notre jeuuuu"
 pygame.display.set_caption(TITLE)
 
 PersoPosx = 320
-PersoPosy = 320
+PersoPosy = 400
 #rectScreen = fenetre.get_rect()  # coordonnée du rectangle de l'écran
 #############################################################
 ## Gestion de la musique ####################################
@@ -30,16 +30,42 @@ pygame.mixer.music.play(-1)
   
 screenSize(640, 480)
 PersoSprite  = makeSprite("links.gif", 32)  # links.gif contains 32 separate frames of animation.
-setBackgroundImage("image.png")
+setBackgroundImage("ciel.JPG")
 moveSprite(PersoSprite,300,300,True)
 showSprite(PersoSprite)
 
+
+
 nextFrame = clock()
 frame = 0
+
+
+
+
 while True:
     if clock() > nextFrame:                         
         frame = (frame+1)%8                         
-        nextFrame += 80                             
+        nextFrame += 80 
+        scrollBackground (0, +1)
+        for nextFrame in range (0, 10000):
+            PersoPosy =+ int(5)
+    if nextFrame >10000:
+        scrollBackground (0,+int(0.5)) 
+        
+    if nextFrame >30000:
+        scrollBackground (0,+int(0.5))
+    if nextFrame >40000:
+        scrollBackground (0,+int(0.5))
+    if nextFrame >50000:
+        scrollBackground (0,+int(0.5))
+    if nextFrame >60000:
+        scrollBackground (0,+int(0.5))
+    if nextFrame >70000:
+        scrollBackground (0,+int(0.5))
+                             
+    if PersoPosy >= 450:
+        #newTextBox (self, "loser", 320, 320, 90, case, maxLength, fontSize)
+        break
 
     if keyPressed("right"):
         changeSpriteImage(PersoSprite, 0*8+frame)    
@@ -53,10 +79,12 @@ while True:
     elif keyPressed("up"):
         changeSpriteImage(PersoSprite, 3*8+frame)
         PersoPosy -= 5
+        
     elif keyPressed("escape"):
         pygame.quit()
     else:
         changeSpriteImage(PersoSprite, 1 * 8 + 5)  
+    
    
 
     TableauPositions = LimiteScreen(PersoPosx,PersoPosy) #verifier si le joueur ne sort pas de l'écran
