@@ -566,7 +566,7 @@ def keyPressed(keyCheck=""):
     pygame.event.clear()
     keys = pygame.key.get_pressed()
     if sum(keys) > 0:
-        if keyCheck == "" or keys[keydict[keyCheck.lower()]]:
+    if keyCheck == "" or keys[keydict[keyCheck.lower()]]:
             return True
     return False
 
