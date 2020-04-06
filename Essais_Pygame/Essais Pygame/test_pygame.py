@@ -30,7 +30,7 @@ pygame.mixer.music.play(-1)
   
 screenSize(640, 480)
 PersoSprite  = makeSprite("links.gif", 32)  # links.gif contains 32 separate frames of animation.
-setBackgroundImage("image.png")
+setBackgroundImage("ciel.JPG")
 moveSprite(PersoSprite,300,300,True)
 showSprite(PersoSprite)
 
