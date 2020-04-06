@@ -34,25 +34,42 @@ setBackgroundImage("ciel.JPG")
 moveSprite(PersoSprite,300,300,True)
 showSprite(PersoSprite)
 
+
+
+
+
+
+
+
+
+
 nextFrame = clock()
 frame = 0
+temps=pygame.time.Clock()
+
+    scrollBackground (0, +5)
+if nextFrame >100000:
+    scrollBackground (0,+20)
+
 while True:
     if clock() > nextFrame:                         
         frame = (frame+1)%8                         
-        nextFrame += 80                             
+        nextFrame += 80 
+                                    
 
     if keyPressed("right"):
         changeSpriteImage(PersoSprite, 0*8+frame)    
         PersoPosx += 5
     elif keyPressed("down"):
         changeSpriteImage(PersoSprite, 1*8+frame)   
-        PersoPosy += 5
+        
     elif keyPressed("left"):
         changeSpriteImage(PersoSprite, 2*8+frame)    
         PersoPosx -= 5
     elif keyPressed("up"):
         changeSpriteImage(PersoSprite, 3*8+frame)
-        PersoPosy -= 5
+        #PersoPosy -= 5
+        
     elif keyPressed("escape"):
         pygame.quit()
     else:
