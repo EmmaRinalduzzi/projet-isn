@@ -49,23 +49,18 @@ while True:
         scrollBackground (0, +1)
         PersoPosy += 1
     if nextFrame >10000:
-        scrollBackground (0,+int(0.5)) 
+        scrollBackground (0,+1) 
         PersoPosy += 0.5
-    if nextFrame >30000:
-        scrollBackground (0,+int(0.5))
-        PersoPosy += 0.5
-    if nextFrame >40000:
-        scrollBackground (0,+int(0.5))
+    if nextFrame >25000:
+        scrollBackground (0,+1)
         PersoPosy += 0.5
     if nextFrame >50000:
-        scrollBackground (0,+int(0.5))
+        scrollBackground (0,+1)
         PersoPosy += 0.5
     if nextFrame >60000:
-        scrollBackground (0,+int(0.5))
+        scrollBackground (0,+1)
         PersoPosy += 0.5
-    if nextFrame >70000:
-        scrollBackground (0,+int(0.5))
-        PersoPosy += 0.5                  
+                     
     if PersoPosy >= 450:
 
         gameover = makeSprite("gameover.png")        # create the sprite object
