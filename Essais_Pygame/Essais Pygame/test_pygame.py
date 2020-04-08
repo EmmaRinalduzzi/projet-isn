@@ -53,7 +53,7 @@ while True:
         PersoPosy += 1
     if nextFrame >10000:
         scrollBackground (0,2) 
-        PersoPosy += 0.05
+        PersoPosy += 0.25
     if nextFrame >25000:
         scrollBackground (0,3)
         PersoPosy += 0.1
@@ -63,17 +63,16 @@ while True:
     if nextFrame >60000:
         scrollBackground (0,5)
         PersoPosy += 0.1
-    if nextFrame >65000:
-        scrollBackground (0,+int(0.5))
-        PersoPosy += 0.1
-    if nextFrame >70000:
-        scrollBackground (0,+int(0.5))
-        PersoPosy += 0.1                    
+                       
     if PersoPosy >= 450:
         gameover = makeSprite("gameover.png")        # create the sprite object
         addSpriteImage(gameover,"gameover.png")
         moveSprite(gameover, 0, 0)                      # move it into position. It is not visible yet
         showSprite(gameover) 
+        pygame.mixer.music.set_volume(0.0)
+        moveSprite(PersoSprite,110,40,True)
+        showSprite(PersoSprite)
+
         break
 
     if keyPressed("right"):
