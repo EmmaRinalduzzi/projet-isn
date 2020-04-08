@@ -97,6 +97,7 @@ while True:
   
     tick(120)
 
+
 endWait()
 
 ## Boucle principale : gestion des évenements #############
