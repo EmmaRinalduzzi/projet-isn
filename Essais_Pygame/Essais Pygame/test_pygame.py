@@ -1,7 +1,6 @@
 ## Initialisation ###########################################
 
 
-
 def LimiteScreen(x,y):
     if x >= 640 :
         x = 640
@@ -14,7 +13,6 @@ def LimiteScreen(x,y):
 import pygame
 from pygame.locals import *
 from pygame_functions import * 
-
 pygame.init()
 fenetre = pygame.display.set_mode((640, 480))
 TITLE = "Notre jeuuuu"
@@ -37,34 +35,39 @@ moveSprite(PersoSprite,300,300,True)
 showSprite(PersoSprite)
 
 
-        
 
 nextFrame = clock()
 frame = 0
 
 
 
-while True:
 
+while True:
     if clock() > nextFrame:                         
         frame = (frame+1)%8                         
         nextFrame += 80 
         scrollBackground (0, +1)
         PersoPosy += 1
     if nextFrame >10000:
-        scrollBackground (0,2) 
-        PersoPosy += 0.25
-    if nextFrame >25000:
-        scrollBackground (0,3)
-        PersoPosy += 0.1
+        scrollBackground (0,+int(0.5)) 
+        PersoPosy += 0.5
+    if nextFrame >30000:
+        scrollBackground (0,+int(0.5))
+        PersoPosy += 0.5
+    if nextFrame >40000:
+        scrollBackground (0,+int(0.5))
+        PersoPosy += 0.5
     if nextFrame >50000:
-        scrollBackground (0,4)
-        PersoPosy += 0.1
+        scrollBackground (0,+int(0.5))
+        PersoPosy += 0.5
     if nextFrame >60000:
-        scrollBackground (0,5)
-        PersoPosy += 0.1
-                       
+        scrollBackground (0,+int(0.5))
+        PersoPosy += 0.5
+    if nextFrame >70000:
+        scrollBackground (0,+int(0.5))
+        PersoPosy += 0.5                  
     if PersoPosy >= 450:
+
         gameover = makeSprite("gameover.png")        # create the sprite object
         addSpriteImage(gameover,"gameover.png")
         moveSprite(gameover, 0, 0)                      # move it into position. It is not visible yet
