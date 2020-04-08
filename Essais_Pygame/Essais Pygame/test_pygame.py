@@ -27,7 +27,7 @@ PersoPosy = 400
 ## Gestion de la musique ####################################
 pygame.mixer.pre_init(44100, 4096)
 pygame.mixer.music.load("music.mp3")
-pygame.mixer.music.set_volume(0.2)
+pygame.mixer.music.set_volume(0.3)
 pygame.mixer.music.play(-1)
   
 screenSize(640, 480)
@@ -72,7 +72,6 @@ while True:
         pygame.mixer.music.set_volume(0.0)
         moveSprite(PersoSprite,110,40,True)
         showSprite(PersoSprite)
-
         break
 
     if keyPressed("right"):
