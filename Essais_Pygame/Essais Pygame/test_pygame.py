@@ -47,11 +47,11 @@ while True:
         frame = (frame+1)%8                         
         nextFrame += 80 
         scrollBackground (0, +1)
-        
-    if nextFrame >10000:
-        scrollBackground (0,+int(0.5)) 
         for nextFrame in range (0, 10000):
             PersoPosy =+ int(5)
+    if nextFrame >10000:
+        scrollBackground (0,+int(0.5)) 
+        
     if nextFrame >30000:
         scrollBackground (0,+int(0.5))
     if nextFrame >40000:
