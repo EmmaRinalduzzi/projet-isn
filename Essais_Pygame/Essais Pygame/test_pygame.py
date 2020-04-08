@@ -47,24 +47,27 @@ while True:
         frame = (frame+1)%8                         
         nextFrame += 80 
         scrollBackground (0, +1)
-        for nextFrame in range (0, 10000):
-            PersoPosy =+ int(5)
+        PersoPosy += 0.5
     if nextFrame >10000:
         scrollBackground (0,+int(0.5)) 
-        
+        PersoPosy += 0.1
     if nextFrame >30000:
         scrollBackground (0,+int(0.5))
+        PersoPosy += 0.1
     if nextFrame >40000:
         scrollBackground (0,+int(0.5))
+        PersoPosy += 0.1
     if nextFrame >50000:
         scrollBackground (0,+int(0.5))
+        PersoPosy += 0.1
     if nextFrame >60000:
         scrollBackground (0,+int(0.5))
+        PersoPosy += 0.1
     if nextFrame >70000:
         scrollBackground (0,+int(0.5))
-                             
+        PersoPosy += 0.1                    
     if PersoPosy >= 450:
-        #newTextBox (self, "loser", 320, 320, 90, case, maxLength, fontSize)
+        
         break
 
     if keyPressed("right"):
