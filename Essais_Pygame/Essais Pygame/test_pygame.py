@@ -10,8 +10,27 @@ def LimiteScreen(x,y):
         y = 450
     return (x,y)
 
+def genereréchelles():
+    
+    rows, cols = (20, 20) 
+    TableauEchelles = [[0 for i in range(cols)] for j in range(rows)] 
+    y= 480
+    for i in range(0,19):
+        
+        echelles = makeSprite("echelle1.png")
+        addSpriteImage(echelles,"echelle1.png")                
+        RandomX = randrange(0,600)
+        y= y-140
+        print(i)
+        print("JE SUIS I")
+        TableauEchelles[i][0]=echelles
+        TableauEchelles[i][1]=RandomX
+        TableauEchelles[i][2]=y
+    return TableauEchelles
 
-
+def PlacerEchelle(echelle, x, y):
+    showSprite(echelle) 
+    moveSprite(echelle,x,y,True)
 
 import pygame
 from pygame.locals import *
@@ -32,23 +51,6 @@ pygame.mixer.music.load("music.mp3")
 pygame.mixer.music.set_volume(0.3)
 pygame.mixer.music.play(-1)
 
-#collision
-#def usine_entite (rectangle):
-   # entite= {'rect': rectangle,
-    #'vitesse': (0,0),
-    #'position' :rectangle.topleft}
-
-#ROUGE = (250,0,0)
-#largeurMur= 64
-#longueurMur =400
-#mur_surf = pygame.Surface ((largeurMur, longueurMur))
-#mur_surf.fill (ROUGE)
-#pygame.Rect (mur_surf, ROUGE, mur_surf.get_rect(),5)
-#mur = usine_entite (pygame.Rect (200,200, largeurMur, longueurMur))
-#fenetre.blit (mur_surf, mur['rect'])
-
-
-
 
 screenSize(640, 480)
 PersoSprite  = makeSprite("links.gif", 32)  # links.gif contains 32 separate frames of animation.
@@ -58,19 +60,11 @@ showSprite(PersoSprite)
 setEchellesImage ("echelle1.png")
 
 
-
 nextFrame = clock()
 frame = 0
-
-
-
-echelles = makeSprite("echelle1.png")        # create the sprite object
-addSpriteImage(echelles,"echelle1.png")
-moveSprite(echelles, 350, 400,True)                      # move it into position. It is not visible yet
-showSprite(echelles) 
-echellesPosx= 300
-echellesPosy = 150
-#scrollEchelles ( 0, +1)
+echelles = genereréchelles()
+print("Debug fonction")
+print(echelles)
 
 while True:
  
@@ -78,27 +72,42 @@ while True:
         frame = (frame+1)%8                         
         nextFrame += 80 
         scrollBackground (0, +1)
+        for i in range(0,len(echelles)-1):
+            echelles [i][2] += 1
+       
         PersoPosy += 1
-        echellesPosy += 1
+        
         #scrollEchelles ( 0, +1)
         
     if nextFrame >10000:
         scrollBackground (0,+1) 
-        PersoPosy += 0.5
+        PersoPosy += 0.20
+        for i in range(0, len(echelles)-1):
+            echelles [i][2] += 1
+       
+        PersoPosy += 1
         #scrollEchelles ( 0, +1)
     if nextFrame >25000:
         scrollBackground (0,+1)
-        PersoPosy += 0.5
+        PersoPosy += 0.25
+        for i in range(0,len(echelles)-1):
+            echelles [i][2] += 1
+       
+        PersoPosy += 1
         #scrollEchelles ( 0, +1)
     if nextFrame >50000:
         scrollBackground (0,+1)
-        PersoPosy += 0.5
-        #scrollEchelles ( 0, +1)
+        PersoPosy += 0.25
+        for i in range(0,len(echelles)-1):
+            echelles [i][2] += 1
+       
+        PersoPosy += 1
 
     if nextFrame >60000:
         scrollBackground (0,+1)
-        PersoPosy += 0.5
-                     
+        PersoPosy += 0.25
+        for i in range(0,len(echelles)-1):
+            echelles [i][2] += 1          
     if PersoPosy >= 450:
 
         gameover = makeSprite("gameover.png")        # create the sprite object
@@ -133,46 +142,14 @@ while True:
     TableauPositions = LimiteScreen(PersoPosx,PersoPosy) #verifier si le joueur ne sort pas de l'écran
     PersoPosx = TableauPositions[0]
     PersoPosy = TableauPositions[1]
-    moveSprite(echelles,echellesPosx,echellesPosy,True)
+
+
+    for i in range(0,len(echelles)-1):
+        PlacerEchelle(echelles[i][0],echelles[i][1],echelles[i][2])
+  
     moveSprite(PersoSprite,PersoPosx,PersoPosy,True)
     
     tick(40)
 
 
 endWait()
-
-## Boucle principale : gestion des évenements #############
-# while True:
-#     if clock()> nextFrame:
-#         frame =(frame+1)%5
-#         nextFrame +=80
-#     for event in pygame.event.get():
-#         if event.type == QUIT:
-#             pygame.quit()  # Fermeture de la fenetre
-#         elif event.type == KEYDOWN:          # Si on appuie sur une touche
-#             if event.key == K_UP:  # si cette touche est "fleche haut"
-#                 y -= 5
-#             if event.key == K_RIGHT:
-#                 x += 5
-#                 changeSpriteImage(agent, 0*5+frame)
-#             if event.key == K_LEFT:
-#                 x -= 5
-                
-#                 changeSpriteImage(agent, 0*5+frame)
-#             if event.key == K_ESCAPE:
-#                 pygame.quit()
-#         if event.type == MOUSEBUTTONDOWN:    # si on fait un clic souris
-#             if event.button == 1:            # si c'est un clic gauche
-#                 x, y = event.pos              # on recuoère la position du clic
-
-#         ## Mise à joure de la flenetre avec perso #########
-#         #on fait l'animation du perso
-       
-
-
-
-  
-#echelles = makeSprite("echelle1.png")        # create the sprite object
-#addSpriteImage(echelles,"echelle1.png")
-#moveSprite(echelles, 350, 400,True)                      # move it into position. It is not visible yet
-#showSprite(echelles)
