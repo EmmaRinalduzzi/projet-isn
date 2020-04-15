@@ -10,9 +10,13 @@ def LimiteScreen(x,y):
         y = 450
     return (x,y)
 
+
+
+
 import pygame
 from pygame.locals import *
 from pygame_functions import * 
+from random import randrange 
 pygame.init()
 fenetre = pygame.display.set_mode((640, 480))
 TITLE = "Notre jeuuuu"
@@ -27,12 +31,31 @@ pygame.mixer.pre_init(44100, 4096)
 pygame.mixer.music.load("music.mp3")
 pygame.mixer.music.set_volume(0.3)
 pygame.mixer.music.play(-1)
-  
+
+#collision
+#def usine_entite (rectangle):
+   # entite= {'rect': rectangle,
+    #'vitesse': (0,0),
+    #'position' :rectangle.topleft}
+
+#ROUGE = (250,0,0)
+#largeurMur= 64
+#longueurMur =400
+#mur_surf = pygame.Surface ((largeurMur, longueurMur))
+#mur_surf.fill (ROUGE)
+#pygame.Rect (mur_surf, ROUGE, mur_surf.get_rect(),5)
+#mur = usine_entite (pygame.Rect (200,200, largeurMur, longueurMur))
+#fenetre.blit (mur_surf, mur['rect'])
+
+
+
+
 screenSize(640, 480)
 PersoSprite  = makeSprite("links.gif", 32)  # links.gif contains 32 separate frames of animation.
 setBackgroundImage("ciel.JPG")
 moveSprite(PersoSprite,300,300,True)
 showSprite(PersoSprite)
+setEchellesImage ("echelle1.png")
 
 
 
@@ -41,22 +64,37 @@ frame = 0
 
 
 
+echelles = makeSprite("echelle1.png")        # create the sprite object
+addSpriteImage(echelles,"echelle1.png")
+moveSprite(echelles, 350, 400,True)                      # move it into position. It is not visible yet
+showSprite(echelles) 
+echellesPosx= 300
+echellesPosy = 150
+#scrollEchelles ( 0, +1)
 
 while True:
+ 
     if clock() > nextFrame:                         
         frame = (frame+1)%8                         
         nextFrame += 80 
         scrollBackground (0, +1)
         PersoPosy += 1
+        echellesPosy += 1
+        #scrollEchelles ( 0, +1)
+        
     if nextFrame >10000:
         scrollBackground (0,+1) 
         PersoPosy += 0.5
+        #scrollEchelles ( 0, +1)
     if nextFrame >25000:
         scrollBackground (0,+1)
         PersoPosy += 0.5
+        #scrollEchelles ( 0, +1)
     if nextFrame >50000:
         scrollBackground (0,+1)
         PersoPosy += 0.5
+        #scrollEchelles ( 0, +1)
+
     if nextFrame >60000:
         scrollBackground (0,+1)
         PersoPosy += 0.5
@@ -95,8 +133,9 @@ while True:
     TableauPositions = LimiteScreen(PersoPosx,PersoPosy) #verifier si le joueur ne sort pas de l'écran
     PersoPosx = TableauPositions[0]
     PersoPosy = TableauPositions[1]
+    moveSprite(echelles,echellesPosx,echellesPosy,True)
     moveSprite(PersoSprite,PersoPosx,PersoPosy,True)
-  
+    
     tick(40)
 
 
@@ -133,3 +172,7 @@ endWait()
 
 
   
+#echelles = makeSprite("echelle1.png")        # create the sprite object
+#addSpriteImage(echelles,"echelle1.png")
+#moveSprite(echelles, 350, 400,True)                      # move it into position. It is not visible yet
+#showSprite(echelles)

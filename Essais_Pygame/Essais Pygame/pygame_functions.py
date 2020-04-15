@@ -17,6 +17,9 @@ hiddenSprites = pygame.sprite.OrderedUpdates()
 screenRefresh = True
 background = None
 
+
+
+
 keydict = {"space": pygame.K_SPACE, "esc": pygame.K_ESCAPE, "up": pygame.K_UP, "down": pygame.K_DOWN,
            "left": pygame.K_LEFT, "right": pygame.K_RIGHT, "return": pygame.K_RETURN,
            "a": pygame.K_a,
@@ -56,6 +59,62 @@ keydict = {"space": pygame.K_SPACE, "esc": pygame.K_ESCAPE, "up": pygame.K_UP, "
            "9": pygame.K_9,
            "0": pygame.K_0}
 screen = ""
+
+class echelle:
+    def __init__(self):
+        self.colour = pygame.Color("black")
+
+    def setTiles(self, tiles):
+        if type(tiles) is str:
+            self.tiles = [[loadImage(tiles)]]
+        elif type(tiles[0]) is str:
+            self.tiles = [[loadImage(i) for i in tiles]]
+        else:
+            self.tiles = [[loadImage(i) for i in row] for row in tiles]
+        self.stagePosX = 0
+        self.stagePosY = 0
+        self.tileWidth = self.tiles[0][0].get_width()
+        self.tileHeight = self.tiles[0][0].get_height()
+        screen.blit(self.tiles[0][0], [0, 0])
+        self.surface = screen.copy()
+
+    def scroll(self, x, y):
+        self.stagePosX -= x
+        self.stagePosY -= y
+        col = (self.stagePosX % (self.tileWidth * len(self.tiles[0]))) // self.tileWidth
+        xOff = (0 - self.stagePosX % self.tileWidth)
+        row = (self.stagePosY % (self.tileHeight * len(self.tiles))) // self.tileHeight
+        yOff = (0 - self.stagePosY % self.tileHeight)
+
+        col2 = ((self.stagePosX + self.tileWidth) % (self.tileWidth * len(self.tiles[0]))) // self.tileWidth
+        row2 = ((self.stagePosY + self.tileHeight) % (self.tileHeight * len(self.tiles))) // self.tileHeight
+        screen.blit(self.tiles[row][col], [xOff, yOff])
+        screen.blit(self.tiles[row][col2], [xOff + self.tileWidth, yOff])
+        screen.blit(self.tiles[row2][col], [xOff, yOff + self.tileHeight])
+        screen.blit(self.tiles[row2][col2], [xOff + self.tileWidth, yOff + self.tileHeight])
+
+        self.surface = screen.copy()
+
+def setEchellesImage(img):
+    global echelle
+    echelle.setTiles(echelle, img)
+    if screenRefresh:
+        updateDisplay()
+
+def scrollEchelles (x,y):
+     
+    global echelle
+    echelle.scroll (echelle, x,y)
+
+
+
+
+
+
+
+
+
+
 
 
 class Background():
@@ -147,6 +206,15 @@ class newSprite(pygame.sprite.Sprite):
         self.mask = pygame.mask.from_surface(self.image)
         if screenRefresh:
             updateDisplay()
+
+
+
+
+
+
+
+
+
 
 
 class newTextBox(pygame.sprite.Sprite):
@@ -385,6 +453,10 @@ def showSprite(sprite):
 def makeSprite(filename, frames=1):
     thisSprite = newSprite(filename, frames)
     return thisSprite
+
+
+
+
 
 
 def addSpriteImage(sprite, image):
@@ -727,6 +799,9 @@ def mouseY():
 def scrollBackground(x, y):
     global background
     background.scroll(x, y)
+
+    
+
 
 
 def setAutoUpdate(val):
