@@ -12,17 +12,16 @@ def LimiteScreen(x,y):
 
 def genereréchelles():
     
-    rows, cols = (20, 20) 
+    rows, cols = (35, 35) 
     TableauEchelles = [[0 for i in range(cols)] for j in range(rows)] 
-    y= 480
-    for i in range(0,19):
+    y= 510
+    for i in range(0,34):
         
         echelles = makeSprite("echelle1.png")
         addSpriteImage(echelles,"echelle1.png")                
         RandomX = randrange(0,600)
         y= y-140
-        print(i)
-        print("JE SUIS I")
+        
         TableauEchelles[i][0]=echelles
         TableauEchelles[i][1]=RandomX
         TableauEchelles[i][2]=y
@@ -31,6 +30,28 @@ def genereréchelles():
 def PlacerEchelle(echelle, x, y):
     showSprite(echelle) 
     moveSprite(echelle,x,y,True)
+   
+
+def generersol():
+    
+    rows, cols = (35, 35) 
+    Tableausol = [[0 for i in range(cols)] for j in range(rows)] 
+    y= 480
+    for i in range(0,34):
+        
+        sol = makeSprite ("sol.png")
+        addSpriteImage(sol,"sol.png")               
+        x = 640
+        y= y-140
+        Tableausol[i][0]=sol
+        Tableausol[i][1]=x
+        Tableausol[i][2]=y
+    return Tableausol
+
+def PlacerSol(sol, x, y):
+    showSprite(sol) 
+    moveSprite(sol,x,y,True)
+
 
 import pygame
 from pygame.locals import *
@@ -47,8 +68,8 @@ PersoPosy = 400
 #############################################################
 ## Gestion de la musique ####################################
 pygame.mixer.pre_init(44100, 4096)
-pygame.mixer.music.load("music.mp3")
-pygame.mixer.music.set_volume(0.3)
+pygame.mixer.music.load("mario.mp3")
+pygame.mixer.music.set_volume(0.5)
 pygame.mixer.music.play(-1)
 
 
@@ -57,14 +78,22 @@ PersoSprite  = makeSprite("links.gif", 32)  # links.gif contains 32 separate fra
 setBackgroundImage("ciel.JPG")
 moveSprite(PersoSprite,300,300,True)
 showSprite(PersoSprite)
-setEchellesImage ("echelle1.png")
+#setEchellesImage ("echelle1.png")
 
 
 nextFrame = clock()
 frame = 0
 echelles = genereréchelles()
-print("Debug fonction")
-print(echelles)
+sol = generersol()
+#print("Debug fonction")
+#print(echelles)
+solsolPosx =0
+solsolPosy=440
+solsol = makeSprite("sol.png")        
+addSpriteImage(solsol,"sol.png")
+                    
+showSprite(solsol)
+
 
 while True:
  
@@ -75,8 +104,10 @@ while True:
         for i in range(0,len(echelles)-1):
             echelles [i][2] += 1
        
+        for i in range(0,len(sol)-1):
+            sol [i][2] += 1
         PersoPosy += 1
-        
+        solsolPosy +=1
         #scrollEchelles ( 0, +1)
         
     if nextFrame >10000:
@@ -84,7 +115,8 @@ while True:
         PersoPosy += 0.20
         for i in range(0, len(echelles)-1):
             echelles [i][2] += 1
-       
+        for i in range(0,len(sol)-1):
+            sol [i][2] += 1
         PersoPosy += 1
         #scrollEchelles ( 0, +1)
     if nextFrame >25000:
@@ -92,7 +124,8 @@ while True:
         PersoPosy += 0.25
         for i in range(0,len(echelles)-1):
             echelles [i][2] += 1
-       
+        for i in range(0,len(sol)-1):
+            sol [i][2] += 1
         PersoPosy += 1
         #scrollEchelles ( 0, +1)
     if nextFrame >50000:
@@ -100,19 +133,22 @@ while True:
         PersoPosy += 0.25
         for i in range(0,len(echelles)-1):
             echelles [i][2] += 1
-       
+        for i in range(0,len(sol)-1):
+            sol [i][2] += 1
         PersoPosy += 1
 
     if nextFrame >60000:
         scrollBackground (0,+1)
         PersoPosy += 0.25
         for i in range(0,len(echelles)-1):
-            echelles [i][2] += 1          
+            echelles [i][2] += 1  
+        for i in range(0,len(sol)-1):
+            sol [i][2] += 1        
     if PersoPosy >= 450:
 
-        gameover = makeSprite("gameover.png")        # create the sprite object
+        gameover = makeSprite("gameover.png")        
         addSpriteImage(gameover,"gameover.png")
-        moveSprite(gameover, 0, 0)                      # move it into position. It is not visible yet
+        moveSprite(gameover, 0, 0)                      
         showSprite(gameover) 
         pygame.mixer.music.set_volume(0.0)
         moveSprite(PersoSprite,110,40,True)
@@ -121,16 +157,16 @@ while True:
 
     if keyPressed("right"):
         changeSpriteImage(PersoSprite, 0*8+frame)    
-        PersoPosx += 5
+        PersoPosx += 10
     elif keyPressed("down"):
         changeSpriteImage(PersoSprite, 1*8+frame)   
-        PersoPosy += 5
+        PersoPosy += 10
     elif keyPressed("left"):
         changeSpriteImage(PersoSprite, 2*8+frame)    
-        PersoPosx -= 5
+        PersoPosx -= 10
     elif keyPressed("up"):
         changeSpriteImage(PersoSprite, 3*8+frame)
-        PersoPosy -= 5
+        PersoPosy -= 10
         
     elif keyPressed("escape"):
         pygame.quit()
@@ -147,9 +183,12 @@ while True:
     for i in range(0,len(echelles)-1):
         PlacerEchelle(echelles[i][0],echelles[i][1],echelles[i][2])
   
+
+    for i in range(0,len(sol)-1):
+        PlacerSol(sol[i][0],sol[i][1],sol[i][2])
     moveSprite(PersoSprite,PersoPosx,PersoPosy,True)
-    
-    tick(40)
+    moveSprite(solsol, solsolPosx, solsolPosy)  
+    tick(100)
 
 
 endWait()
