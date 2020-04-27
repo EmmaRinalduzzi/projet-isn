@@ -17,8 +17,10 @@ def genereréchelles():
     y= 510
     for i in range(0,34):
         
-        echelles = makeSprite("echelle1.png")
-        addSpriteImage(echelles,"echelle1.png")                
+        echelles = makeSprite("echelle2.png")
+        #objet_rect=echelles.get_rect() 
+       # mon_rect=pygame.Rect(objet_rect)
+        addSpriteImage(echelles,"echelle2.png")                
         RandomX = randrange(0,600)
         y= y-140
         
@@ -69,13 +71,17 @@ PersoPosy = 400
 ## Gestion de la musique ####################################
 pygame.mixer.pre_init(44100, 4096)
 pygame.mixer.music.load("mario.mp3")
-pygame.mixer.music.set_volume(0.5)
+pygame.mixer.music.set_volume(0.3)
 pygame.mixer.music.play(-1)
 
+TableauEchelles = []
 
 screenSize(640, 480)
 PersoSprite  = makeSprite("links.gif", 32)  # links.gif contains 32 separate frames of animation.
+#EchelleSprite = makeSprite("echelle2.png")
+#addSpriteImage(EchelleSprite,"echelle2.png")
 setBackgroundImage("ciel.JPG")
+
 moveSprite(PersoSprite,300,300,True)
 showSprite(PersoSprite)
 #setEchellesImage ("echelle1.png")
@@ -90,11 +96,13 @@ sol = generersol()
 solsolPosx =0
 solsolPosy=440
 solsol = makeSprite("sol.png")        
-addSpriteImage(solsol,"sol.png")
-                    
+addSpriteImage(solsol,"sol.png")                 
 showSprite(solsol)
 
-
+drapeau = makeSprite("drapeau.png")        
+addSpriteImage(drapeau,"drapeau.png")                 
+drapeauposy =-45
+drapeauposx= randrange(100,400)
 while True:
  
     if clock() > nextFrame:                         
@@ -143,7 +151,17 @@ while True:
         for i in range(0,len(echelles)-1):
             echelles [i][2] += 1  
         for i in range(0,len(sol)-1):
-            sol [i][2] += 1        
+            sol [i][2] += 1  
+    if nextFrame > 5000:
+        winner = makeSprite("winner.jpg")        
+        addSpriteImage(winner,"winner.jpg")
+        moveSprite(winner, 0, 0)                       
+        showSprite(drapeau)
+        drapeauposy +=1
+        if touching (drapeau, PersoSprite):
+            showSprite(winner)
+            break 
+
     if PersoPosy >= 450:
 
         gameover = makeSprite("gameover.png")        
@@ -157,16 +175,22 @@ while True:
 
     if keyPressed("right"):
         changeSpriteImage(PersoSprite, 0*8+frame)    
-        PersoPosx += 10
+        PersoPosx += 11
     elif keyPressed("down"):
         changeSpriteImage(PersoSprite, 1*8+frame)   
         PersoPosy += 10
     elif keyPressed("left"):
         changeSpriteImage(PersoSprite, 2*8+frame)    
-        PersoPosx -= 10
-    elif keyPressed("up"):
-        changeSpriteImage(PersoSprite, 3*8+frame)
-        PersoPosy -= 10
+        PersoPosx -= 11
+        
+    elif keyPressed("up") :
+        monterPossible= False
+        for i in range (34):
+            if touching(echelles[i][0], PersoSprite) :
+                monterPossible = True
+        if monterPossible: 
+            changeSpriteImage(PersoSprite, 3*8+frame)
+            PersoPosy -= 10
         
     elif keyPressed("escape"):
         pygame.quit()
@@ -187,7 +211,10 @@ while True:
     for i in range(0,len(sol)-1):
         PlacerSol(sol[i][0],sol[i][1],sol[i][2])
     moveSprite(PersoSprite,PersoPosx,PersoPosy,True)
-    moveSprite(solsol, solsolPosx, solsolPosy)  
+    moveSprite(solsol, solsolPosx, solsolPosy) 
+
+    moveSprite(drapeau, drapeauposx, drapeauposy)  
+    
     tick(100)
 
 
