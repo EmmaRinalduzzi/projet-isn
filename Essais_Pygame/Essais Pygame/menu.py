@@ -6,12 +6,12 @@ from pygame.locals import *
 if Menu :  #si menu vaut 1
 
         #on crée un fond
-        fond = pygame.image.load("686fc664-cde4-4b03-b92f-4675314584f0.jpg").convert()
+        #fond = pygame.image.load("686fc664-cde4-4b03-b92f-4675314584f0.jpg").convert()
 
  
 
         #on sélectionne une police
-        font = pygame.font.SysFont('Helvetica', 24, bold=True)
+        #font = pygame.font.SysFont('Helvetica', 24, bold=True)
 
         #on crée un rectangle de 100x20
         bouton1 = pygame.Surface((100, 20))
