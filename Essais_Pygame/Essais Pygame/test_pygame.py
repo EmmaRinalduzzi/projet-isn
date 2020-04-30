@@ -64,6 +64,7 @@ fenetre = pygame.display.set_mode((640, 480))
 TITLE = "Notre jeuuuu"
 pygame.display.set_caption(TITLE)
 
+Black = (0,0,0)
 PersoPosx = 320
 PersoPosy = 400
 #rectScreen = fenetre.get_rect()  # coordonnée du rectangle de l'écran
@@ -152,13 +153,17 @@ while True:
             echelles [i][2] += 1  
         for i in range(0,len(sol)-1):
             sol [i][2] += 1  
-    if nextFrame > 5000:
-        winner = makeSprite("winner.jpg")        
-        addSpriteImage(winner,"winner.jpg")
+    if nextFrame > 2000:
+        winner = makeSprite("winner.png")        
+        addSpriteImage(winner,"winner.png")
         moveSprite(winner, 0, 0)                       
         showSprite(drapeau)
         drapeauposy +=1
         if touching (drapeau, PersoSprite):
+            setBackgroundColour(Black)
+           # hideSprite(echelles)
+            #hideSprite(solsol)
+            hideAll()
             showSprite(winner)
             break 
 
