@@ -57,20 +57,34 @@ def PlacerSol(sol, x, y):
 
 def genererObstacles():
     rows, cols = (35, 35) 
-    TableauObstacle = [[0 for i in range(cols)] for j in range(rows)] 
+    TableauObstacle =  [[0 for i in range(cols)] for j in range(rows)] 
     y= 510
     for i in range(0,34):
         obstacle= makeSprite("obstacle.png")
         addSpriteImage(obstacle, "obstacle.png")
-        Xaleatoire= randrange(0,600)
+        echelles = genereréchelles()
+    
+        for i in range (34):
+            if touching (echelles [i][0], obstacle):
+                Xaleatoire= 700
+            else:
+                Xaleatoire= randrange(0,600)
         y= y-140
         
         TableauObstacle[i][0]=obstacle
         TableauObstacle[i][1]=Xaleatoire
         TableauObstacle[i][2]=y
+       
     return TableauObstacle
 
 def PlacerObstacles(obstacle, x, y):
+    # echelles = genereréchelles()
+    # collision=False
+    # for i in range (34):
+    #     if touching (echelles [i][0], obstacle):
+    #         print ("yo")
+    #         collision =True
+    #     else:
     showSprite(obstacle) 
     moveSprite(obstacle,x,y,True)
 
@@ -139,7 +153,6 @@ def start ():
                     obstacle [i][2] += 1
                 PersoPosy += 1
                 solsolPosy +=1
-                #scrollEchelles ( 0, +1)
                 
             if nextFrame >10000:
                 scrollBackground (0,+1) 
@@ -199,8 +212,7 @@ def start ():
 
                     print("Jsuis dans laboucle victoire")
                     setBackgroundColour(Black)
-                # hideSprite(echelles)
-                    #hideSprite(solsol)
+                
                    
                     showSprite(winner)
                  
