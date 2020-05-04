@@ -55,7 +55,7 @@ def PlacerSol(sol, x, y):
     showSprite(sol) 
     moveSprite(sol,x,y,True)
 
-def genererObstacles(obstacle,x,y):
+def genererObstacles():
     rows, cols = (35, 35) 
     TableauObstacle = [[0 for i in range(cols)] for j in range(rows)] 
     y= 510
@@ -94,7 +94,7 @@ def start ():
         pygame.mixer.music.play(-1)
 
         TableauEchelles = []
-
+        TableauSol=[]
         screenSize(640, 480)
         PersoSprite  = makeSprite("links.gif", 32)  # links.gif contains 32 separate frames of animation.
         #EchelleSprite = makeSprite("echelle2.png")
@@ -261,7 +261,7 @@ def start ():
                     moveSprite(PersoSprite,PersoPosx,PersoPosy,True)
                     moveSprite(solsol, solsolPosx, solsolPosy) 
 
-                for i in range(0,34-1):
+                for i in range(0,len(obstacle)-1):
                     PlacerObstacles(obstacle[i][0],obstacle[i][1],obstacle[i][2])
                     moveSprite(PersoSprite,PersoPosx,PersoPosy,True)
                     

@@ -55,7 +55,7 @@ def PlacerSol(sol, x, y):
     moveSprite(sol,x,y,True)
 
 
-def genererObstacles(obstacle,x,y):
+def genererObstacles():
     rows, cols = (35, 35) 
     TableauObstacle = [[0 for i in range(cols)] for j in range(rows)] 
     y= 510
