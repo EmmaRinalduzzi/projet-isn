@@ -10,24 +10,27 @@ def LimiteScreen(x,y):
         y = 450
     return (x,y)
 
-def genereréchelles():
-    
+def genererObstacles():
     rows, cols = (35, 35) 
-    TableauEchelles = [[0 for i in range(cols)] for j in range(rows)] 
+    TableauObstacle =  [[0 for i in range(cols)] for j in range(rows)] 
     y= 510
     for i in range(0,34):
-        
-        echelles = makeSprite("echelle2.png")
-        #objet_rect=echelles.get_rect() 
-       # mon_rect=pygame.Rect(objet_rect)
-        addSpriteImage(echelles,"echelle2.png")                
-        RandomX = randrange(0,600)
+        obstacle= makeSprite("obstacle.png")
+        addSpriteImage(obstacle, "obstacle.png")
+        echelles = genereréchelles()
+    
+        if touching (echelles [i][0], obstacle):
+            Xaleatoire= 700
+        else:
+            Xaleatoire= randrange(0,600)
+       
         y= y-140
         
-        TableauEchelles[i][0]=echelles
-        TableauEchelles[i][1]=RandomX
-        TableauEchelles[i][2]=y
-    return TableauEchelles
+        TableauObstacle[i][0]=obstacle
+        TableauObstacle[i][1]=Xaleatoire
+        TableauObstacle[i][2]=y
+       
+    return TableauObstacle
 
 def PlacerEchelle(echelle, x, y):
     showSprite(echelle) 
