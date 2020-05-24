@@ -15,12 +15,12 @@ def LimiteScreen(x, y):
     return (x, y)
 
 # def fonction (x):
-#     PersoPosx= 320
+    
 #     echelles = genereréchelles()
 
 #     for i in range (0,34):             
-#         if  PersoPosx== echelles[i][1]+80:
-#             PersoPosx= echelles[i][1]+30
+#         if  x== echelles[i][1]+80:
+#             x= echelles[i][1]+30
 #     return (x)                    
     
     
@@ -44,6 +44,7 @@ def genereréchelles():
         TableauEchelles[i][0] = echelles
         TableauEchelles[i][1] = RandomX
         TableauEchelles[i][2] = y
+        
     return TableauEchelles
 
 
@@ -75,15 +76,13 @@ def PlacerSol(sol, x, y):
 
 
 def genererObstacles():
-    rows, cols = (35, 35)
+    rows, cols = (34, 3)
     TableauObstacle = [[0 for i in range(cols)] for j in range(rows)]
     y = 510
     for i in range(0, 34):
         obstacle = makeSprite("obstacle.png")
         addSpriteImage(obstacle, "obstacle.png")
-        # echelles = genereréchelles()
-
-        # else:
+       
         Xaleatoire = randrange(0, 600)
 
         y = y-140
@@ -92,18 +91,19 @@ def genererObstacles():
         TableauObstacle[i][1] = Xaleatoire
         TableauObstacle[i][2] = y
 
+
+        showSprite(TableauObstacle[i][0])
+
+
+
+        
+
     return TableauObstacle
 
 
 def PlacerObstacles(obstacle, x, y):
-    # echelles = genereréchelles()
-    # collision=False
-    # for i in range (34):
-    #     if touching (echelles [i][0], obstacle):
-    #         print ("yo")
-    #         collision =True
-    #     else:
-    showSprite(obstacle)
+    
+    #showSprite(obstacle)
     moveSprite(obstacle, x, y, True)
 
 
@@ -123,31 +123,37 @@ def start():
         ## Gestion de la musique ####################################
         pygame.mixer.pre_init(44100, 4096)
         pygame.mixer.music.load("mario.mp3")
-        pygame.mixer.music.set_volume(0.3)
+        pygame.mixer.music.set_volume(0)
         pygame.mixer.music.play(-1)
 
         TableauEchelles = []
         TableauSol = []
         screenSize(640, 480)
-        # links.gif contains 32 separate frames of animation.
+        
         PersoSprite = makeSprite("links.gif", 32)
-        # EchelleSprite = makeSprite("echelle2.png")
-        # addSpriteImage(EchelleSprite,"echelle2.png")
+        
         setBackgroundImage("ciel.JPG")
 
         moveSprite(PersoSprite, 300, 300, True)
         showSprite(PersoSprite)
-        # setEchellesImage ("echelle1.png")
+        
         
         nextFrame = clock()
         frame = 0
         echelles = genereréchelles()
         sol = generersol()
+        
         obstacle = genererObstacles()
-        for i in range(0, 34):
-            if echelles[i][1] -65 <  obstacle[i][1] < echelles[i][1] + 50:
-                obstacle[i][1] = 700
 
+        for i in range(0,34):
+         
+            
+            print(i)
+            print("mes coordo :"+str(obstacle[i][1]) +" et : "+str(obstacle[i][2]))
+        for i in range(0, 34):
+            if echelles[i][1] -65 <  obstacle[i][1] < echelles[i][1] + 50 or echelles[i][2] -100 <  obstacle[i][1] < echelles[i][2] + 100:
+                obstacle[i][1] = 700
+        
                        
         solsolPosx =0
         solsolPosy=440
@@ -157,26 +163,25 @@ def start():
 
         drapeau = makeSprite("drapeau.png")        
         addSpriteImage(drapeau,"drapeau.png")                 
-        drapeauposy =345
+        drapeauposy =245
         drapeauposx= randrange(100,400)
 
         
         
         while True:
-            
             if clock() > nextFrame:                         
                 frame = (frame+1)%8                         
                 nextFrame += 80 
-                scrollBackground (0, +1)
-                for i in range(0,len(echelles)-1):
-                    echelles [i][2] += 1
+                scrollBackground (0, +2)
+                for i in range(0,len(echelles)-2):
+                    echelles [i][2] += 2
             
-                for i in range(0,len(sol)-1):
-                    sol [i][2] += 1
-                for i in range(0,len(obstacle)-1):
-                    obstacle [i][2] += 1
-                PersoPosy += 1
-                solsolPosy +=1
+                for i in range(0,len(sol)-2):
+                    sol [i][2] += 2
+                for i in range(0,34):
+                    obstacle [i][2] += 2
+                PersoPosy += 2
+                solsolPosy +=2
                 
             if nextFrame >10000:
                 scrollBackground (0,+1) 
@@ -185,7 +190,7 @@ def start():
                     echelles [i][2] += 1
                 for i in range(0,len(sol)-1):
                     sol [i][2] += 1
-                for i in range(0,len(obstacle)-1):
+                for i in range(0,34):
                     obstacle [i][2] += 1
                 PersoPosy += 1
                 # scrollEchelles ( 0, +1)
@@ -196,7 +201,7 @@ def start():
                     echelles [i][2] += 1
                 for i in range(0,len(sol)-1):
                     sol [i][2] += 1
-                for i in range(0,len(obstacle)-1):
+                for i in range(0,34):
                     obstacle [i][2] += 1
                 PersoPosy += 1
                 # scrollEchelles ( 0, +1)
@@ -207,7 +212,7 @@ def start():
                     echelles [i][2] += 1
                 for i in range(0,len(sol)-1):
                     sol [i][2] += 1
-                for i in range(0,len(obstacle)-1):
+                for i in range(0,34):
                     obstacle [i][2] += 1
                 PersoPosy += 1
 
@@ -220,12 +225,15 @@ def start():
                     echelles [i][2] += 1  
                 for i in range(0,len(sol)-1):
                     sol [i][2] += 1  
-                for i in range(0,len(obstacle)-1):
-                    obstacle [i][2] += 1
+                for i in range(0,34):
+                     obstacle [i][2] += 1
 
             collisionObstacle= False
             for i in range (34):
+                
                 if touching(obstacle[i][0], PersoSprite) :
+                    print("jejejee")
+                    print(touching(obstacle[i][0], PersoSprite),obstacle[i], i)
                     collisionObstacle = True
                     gameover = makeSprite("gameover.png")        
                     addSpriteImage(gameover,"gameover.png")
@@ -263,8 +271,7 @@ def start():
                         
             if PersoPosy >= 450:
                
-                gameover = makeSprite("gameover.png")        
-                addSpriteImage(gameover,"gameover.png")
+                
                 moveSprite(gameover, 0, 0)                      
                 showSprite(gameover) 
                 pygame.mixer.music.set_volume(0.0)
@@ -278,9 +285,16 @@ def start():
             if keyPressed("right"):
                 changeSpriteImage(PersoSprite, 0*8+frame)    
                 PersoPosx += 20
+                allerDroite= True
+                for i in range (0,34):
+                    if echelles[i][1]<  PersoPosx < echelles[i][1] + 80:
+                        allerDroite= False
+                        
+
             # elif keyPressed("down"):
             #     changeSpriteImage(PersoSprite, 1*8+frame)   
             #     PersoPosy += 10
+
             elif keyPressed("left"):
                 changeSpriteImage(PersoSprite, 2*8+frame)    
                 PersoPosx -= 20
@@ -307,20 +321,20 @@ def start():
             PersoPosx = TableauPositions[0]
             PersoPosy = TableauPositions[1]
 
-            # TableauPerso = fonction (PersoPosx)
-            # PersoPosx = TableauPerso[0]
+            #fonction (PersoPosx)
+            
 
             if Victoire == False:
                 for i in range(0,len(echelles)-1):
                     PlacerEchelle(echelles[i][0],echelles[i][1],echelles[i][2])
-            
+                    
 
                 for i in range(0,len(sol)-1):
                     PlacerSol(sol[i][0],sol[i][1],sol[i][2])
                     moveSprite(PersoSprite,PersoPosx,PersoPosy,True)
                     moveSprite(solsol, solsolPosx, solsolPosy) 
 
-                for i in range(1,len(obstacle)-1):
+                for i in range(0,34):
                     PlacerObstacles(obstacle[i][0],obstacle[i][1],obstacle[i][2])
                     moveSprite(PersoSprite,PersoPosx,PersoPosy,True)
                     
