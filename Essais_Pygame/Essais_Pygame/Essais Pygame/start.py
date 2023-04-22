@@ -123,8 +123,8 @@ def start():
         ## Gestion de la musique ####################################
         pygame.mixer.pre_init(44100, 4096)
         pygame.mixer.music.load("mario.mp3")
-        pygame.mixer.music.set_volume(0)
-        pygame.mixer.music.play(-1)
+        pygame.mixer.music.set_volume(0.01)
+        pygame.mixer.music.play(1)
 
         TableauEchelles = []
         TableauSol = []
@@ -271,7 +271,13 @@ def start():
                         
             if PersoPosy >= 450:
                
-                
+                gameover = makeSprite("gameover.png")        
+                addSpriteImage(gameover,"gameover.png")
+                moveSprite(gameover, 0, 0)                      
+                showSprite(gameover) 
+                pygame.mixer.music.set_volume(0.0)
+                moveSprite(PersoSprite,110,40,True) 
+                showSprite(PersoSprite)
                 moveSprite(gameover, 0, 0)                      
                 showSprite(gameover) 
                 pygame.mixer.music.set_volume(0.0)
@@ -280,8 +286,7 @@ def start():
                 break
 
             
-                
-
+            
             if keyPressed("right"):
                 changeSpriteImage(PersoSprite, 0*8+frame)    
                 PersoPosx += 20
